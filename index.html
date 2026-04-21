@@ -266,6 +266,117 @@
       margin: 12px 0 0;
     }
 
+    .mobile-form {
+      display: none;
+      width: min(100%, 760px);
+      margin: 14px auto 28px;
+      padding: 0 10px;
+    }
+
+    .mobile-card {
+      background: rgba(255,255,255,0.98);
+      border: 1px solid #d9e1ec;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .mobile-title {
+      margin: 0 0 10px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .mobile-hint {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.8;
+      color: #64748b;
+    }
+
+    .mobile-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .mobile-field {
+      display: block;
+    }
+
+    .mobile-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .mobile-input,
+    .mobile-textarea {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-family: Tahoma, Arial, sans-serif;
+      font-size: 15px;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+    }
+
+    .mobile-input:focus,
+    .mobile-textarea:focus {
+      border-color: rgba(15, 95, 143, 0.45);
+      box-shadow: 0 0 0 3px rgba(15, 95, 143, 0.10);
+    }
+
+    .mobile-textarea {
+      min-height: 94px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .mobile-input.ltr,
+    .mobile-textarea.ltr {
+      direction: ltr;
+      text-align: left;
+    }
+
+    .mobile-options {
+      display: grid;
+      gap: 8px;
+    }
+
+    .mobile-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1px solid #d9e1ec;
+      border-radius: 10px;
+      background: #fff;
+      font-size: 14px;
+      color: #0f172a;
+    }
+
+    .mobile-option input {
+      margin: 0;
+      inline-size: 16px;
+      block-size: 16px;
+      accent-color: #0f5f8f;
+      flex: 0 0 auto;
+    }
+
+    .mobile-action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
     .screen-only { display: block; }
     .print-only { display: none; }
 
@@ -281,10 +392,50 @@
       direction: rtl;
     }
 
+
     @media (max-width: 900px) {
-      .workspace { padding: 14px 8px 24px; }
-      .paper { border-radius: 0; }
-      .btn { padding: 10px 14px; font-size: 14px; }
+      .toolbar {
+        padding: 12px 10px;
+        gap: 8px;
+      }
+
+      .toolbar-note {
+        font-size: 12px;
+        line-height: 1.7;
+      }
+
+      .workspace {
+        padding: 12px 0 16px;
+      }
+
+      .paper {
+        width: min(100vw, 680px);
+        border-radius: 0;
+      }
+
+      .btn {
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+
+      .mobile-form {
+        display: block;
+      }
+
+      .edit-input,
+      .edit-area,
+      #screenshotSlot.screen-only {
+        display: none !important;
+      }
+
+      .paper .print-field,
+      .paper .print-only {
+        display: block !important;
+      }
+
+      .box-check {
+        pointer-events: none;
+      }
     }
 
     @media print {
@@ -305,7 +456,8 @@
 
       .toolbar,
       .status-bar,
-      .screen-only {
+      .screen-only,
+      .mobile-form {
         display: none !important;
       }
 
@@ -422,6 +574,85 @@
 
   <div id="statusBar" class="status-bar screen-only">جاهز للتعبئة والحفظ والتصدير.</div>
 
+  <div class="mobile-form screen-only">
+    <div class="mobile-card">
+      <h2 class="mobile-title">تعبئة أسهل على الجوال</h2>
+      <p class="mobile-hint">في الجوال أدخل البيانات من الحقول التالية، وستظهر مباشرة داخل النموذج أعلاه بنفس التنسيق المعتمد في نسخة 3.</p>
+    </div>
+
+    <div class="mobile-card">
+      <h3 class="mobile-title">البيانات الأساسية</h3>
+      <div class="mobile-grid">
+        <label class="mobile-field">
+          <span class="mobile-label">البريد الإلكتروني التعليمي</span>
+          <input class="mobile-input ltr" type="text" data-bind="email" placeholder="name@school.edu.sa" />
+        </label>
+        <label class="mobile-field">
+          <span class="mobile-label">اسم المشارك</span>
+          <input class="mobile-input" type="text" data-bind="participantName" placeholder="اسم المشارك" />
+        </label>
+        <label class="mobile-field">
+          <span class="mobile-label">اسم المدرسة</span>
+          <input class="mobile-input" type="text" data-bind="schoolName" placeholder="اسم المدرسة" />
+        </label>
+        <label class="mobile-field">
+          <span class="mobile-label">إدارة التعليم</span>
+          <input class="mobile-input" type="text" data-bind="educationDept" placeholder="إدارة التعليم" />
+        </label>
+      </div>
+    </div>
+
+    <div class="mobile-card">
+      <h3 class="mobile-title">نوع المشارك والمسار</h3>
+      <label class="mobile-label">صفة المشارك</label>
+      <div class="mobile-options">
+        <label class="mobile-option"><input type="radio" name="mobileParticipantRole" value="" /> بدون تحديد</label>
+        <label class="mobile-option"><input type="radio" name="mobileParticipantRole" value="principal" /> مدير المدرسة</label>
+        <label class="mobile-option"><input type="radio" name="mobileParticipantRole" value="assistant" /> وكيل المدرسة</label>
+        <label class="mobile-option"><input type="radio" name="mobileParticipantRole" value="teacher" /> معلم</label>
+      </div>
+
+      <label class="mobile-label" style="margin-top:12px;">نوع المسار</label>
+      <div class="mobile-options">
+        <label class="mobile-option"><input type="radio" name="mobileTrackType" value="" /> بدون تحديد</label>
+        <label class="mobile-option"><input type="radio" name="mobileTrackType" value="teacherInnovator" /> المعلم المبتكر</label>
+        <label class="mobile-option"><input type="radio" name="mobileTrackType" value="leaderInnovator" /> القائد المبتكر</label>
+      </div>
+    </div>
+
+    <div class="mobile-card">
+      <h3 class="mobile-title">تفاصيل التطبيق العملي</h3>
+      <div class="mobile-grid">
+        <label class="mobile-field">
+          <span class="mobile-label">المشكلة التعليمية / الإدارية</span>
+          <textarea class="mobile-textarea" data-bind="problem" placeholder="اكتب المشكلة التعليمية أو الإدارية"></textarea>
+        </label>
+        <label class="mobile-field">
+          <span class="mobile-label">الأمر النصي المستخدم في Copilot</span>
+          <textarea class="mobile-textarea" data-bind="prompt" placeholder="اكتب الأمر النصي المستخدم في Copilot"></textarea>
+        </label>
+        <label class="mobile-field">
+          <span class="mobile-label">رابط الأمر النصي</span>
+          <textarea class="mobile-textarea ltr" data-bind="promptLink" placeholder="https://..."></textarea>
+        </label>
+        <label class="mobile-field">
+          <span class="mobile-label">الحل المقترح بعد المراجعة</span>
+          <textarea class="mobile-textarea" data-bind="solution" placeholder="اكتب الحل المقترح بعد المراجعة"></textarea>
+        </label>
+      </div>
+    </div>
+
+    <div class="mobile-card">
+      <h3 class="mobile-title">لقطة الشاشة</h3>
+      <p class="mobile-hint">استخدم الأزرار التالية لإرفاق الصورة أو حذفها. ستظهر مباشرة داخل مكانها في النموذج.</p>
+      <div class="mobile-action-row">
+        <button class="btn btn-secondary" type="button" onclick="openImagePicker()">إرفاق صورة</button>
+        <button class="btn btn-danger" type="button" onclick="removeImage()">حذف الصورة</button>
+      </div>
+    </div>
+  </div>
+
+
   <script>
     const STORAGE_KEY = 'hour_ai_template_state_v2';
     const fieldIds = ["email", "participantName", "schoolName", "educationDept", "problem", "prompt", "promptLink", "solution"];
@@ -514,6 +745,33 @@
 
     function autoFitAllSingleLineFields() {
       document.querySelectorAll('.edit-input').forEach(autoFitSingleLineField);
+    }
+
+    function syncMobileFieldsFromState() {
+      document.querySelectorAll('[data-bind]').forEach((field) => {
+        const source = byId(field.dataset.bind);
+        if (source && field.value !== source.value) {
+          field.value = source.value;
+        }
+      });
+
+      const selectedParticipant = checkboxIds.find((id) => ['principal', 'assistant', 'teacher'].includes(id) && byId(id).checked) || '';
+      document.querySelectorAll('input[name="mobileParticipantRole"]').forEach((radio) => {
+        radio.checked = radio.value === selectedParticipant;
+      });
+
+      const selectedTrack = checkboxIds.find((id) => ['teacherInnovator', 'leaderInnovator'].includes(id) && byId(id).checked) || '';
+      document.querySelectorAll('input[name="mobileTrackType"]').forEach((radio) => {
+        radio.checked = radio.value === selectedTrack;
+      });
+    }
+
+    function setCheckboxGroup(groupName, selectedId) {
+      document.querySelectorAll('.box-check[data-group="' + groupName + '"]').forEach((box) => {
+        box.checked = !!selectedId && box.id === selectedId;
+      });
+      syncMobileFieldsFromState();
+      saveState(false);
     }
 
     function updateImageViews() {
@@ -615,6 +873,7 @@
 
       syncAllTextFields();
       updateImageViews();
+      syncMobileFieldsFromState();
     }
 
     function enforceSingleCheck(changedBox) {
@@ -644,6 +903,13 @@
       byId('imageInput').click();
     }
 
+    function removeImage() {
+      state.imageData = '';
+      state.imageName = '';
+      updateImageViews();
+      saveState(true);
+    }
+
     function clearForm() {
       if (!confirm('هل تريد مسح جميع البيانات من النموذج؟')) return;
 
@@ -660,6 +926,7 @@
       state.imageName = '';
       updateImageViews();
       localStorage.removeItem(STORAGE_KEY);
+      syncMobileFieldsFromState();
       setStatus('تم مسح النموذج.');
     }
 
@@ -1063,7 +1330,30 @@
       const field = byId(id);
       field.addEventListener('input', () => {
         syncTextField(id);
+        syncMobileFieldsFromState();
         saveState(false);
+      });
+    });
+
+    document.querySelectorAll('[data-bind]').forEach((field) => {
+      field.addEventListener('input', () => {
+        const source = byId(field.dataset.bind);
+        if (!source) return;
+        source.value = field.value;
+        syncTextField(source.id);
+        saveState(false);
+      });
+    });
+
+    document.querySelectorAll('input[name="mobileParticipantRole"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        setCheckboxGroup('participantRole', radio.value || '');
+      });
+    });
+
+    document.querySelectorAll('input[name="mobileTrackType"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        setCheckboxGroup('trackType', radio.value || '');
       });
     });
 
@@ -1071,6 +1361,7 @@
       const box = byId(id);
       box.addEventListener('change', () => {
         enforceSingleCheck(box);
+        syncMobileFieldsFromState();
         saveState(false);
       });
     });
@@ -1101,6 +1392,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       loadState();
       autoFitAllSingleLineFields();
+      syncMobileFieldsFromState();
     });
   </script>
 </body>
