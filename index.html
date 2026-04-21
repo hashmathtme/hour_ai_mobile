@@ -266,163 +266,25 @@
       margin: 12px 0 0;
     }
 
-    .mobile-form {
-      display: none;
-      width: min(100%, 760px);
-      margin: 14px auto 28px;
-      padding: 0 10px;
-    }
-
-    .mobile-card {
-      background: rgba(255,255,255,0.98);
-      border: 1px solid #d9e1ec;
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 12px;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
-    }
-
-    .mobile-title {
-      margin: 0 0 10px;
-      font-size: 15px;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    .mobile-hint {
-      margin: 0;
-      font-size: 12px;
-      line-height: 1.8;
-      color: #64748b;
-    }
-
-    .mobile-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
-    .mobile-field {
-      display: block;
-    }
-
-    .mobile-label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #334155;
-    }
-
-    .mobile-input,
-    .mobile-textarea {
-      width: 100%;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 11px 12px;
-      font-family: Tahoma, Arial, sans-serif;
-      font-size: 15px;
-      color: var(--ink);
-      background: #fff;
-      outline: none;
-    }
-
-    .mobile-input:focus,
-    .mobile-textarea:focus {
-      border-color: rgba(15, 95, 143, 0.45);
-      box-shadow: 0 0 0 3px rgba(15, 95, 143, 0.10);
-    }
-
-    .mobile-textarea {
-      min-height: 94px;
-      resize: vertical;
-      line-height: 1.6;
-    }
-
-    .mobile-input.ltr,
-    .mobile-textarea.ltr {
-      direction: ltr;
-      text-align: left;
-    }
-
-    .mobile-options {
-      display: grid;
-      gap: 8px;
-    }
-
-    .mobile-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      border: 1px solid #d9e1ec;
-      border-radius: 10px;
-      background: #fff;
-      font-size: 14px;
-      color: #0f172a;
-    }
-
-    .mobile-option input {
-      margin: 0;
-      inline-size: 16px;
-      block-size: 16px;
-      accent-color: #0f5f8f;
-      flex: 0 0 auto;
-    }
-
-    .mobile-action-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
     .screen-only { display: block; }
     .print-only { display: none; }
 
+    .print-link-anchor {
+      display: inline-block;
+      max-width: 100%;
+      color: #0f5f8f;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      direction: rtl;
+    }
+
     @media (max-width: 900px) {
-      .toolbar {
-        padding: 12px 10px;
-        gap: 8px;
-      }
-
-      .toolbar-note {
-        font-size: 12px;
-        line-height: 1.7;
-      }
-
-      .workspace {
-        padding: 12px 0 16px;
-      }
-
-      .paper {
-        width: min(100vw, 680px);
-        border-radius: 0;
-      }
-
-      .btn {
-        padding: 10px 14px;
-        font-size: 14px;
-      }
-
-      .mobile-form {
-        display: block;
-      }
-
-      .edit-input,
-      .edit-area,
-      #screenshotSlot.screen-only {
-        display: none !important;
-      }
-
-      .paper .print-field,
-      .paper .print-only {
-        display: block !important;
-      }
-
-      .box-check {
-        pointer-events: none;
-      }
+      .workspace { padding: 14px 8px 24px; }
+      .paper { border-radius: 0; }
+      .btn { padding: 10px 14px; font-size: 14px; }
     }
 
     @media print {
@@ -443,8 +305,7 @@
 
       .toolbar,
       .status-bar,
-      .screen-only,
-      .mobile-form {
+      .screen-only {
         display: none !important;
       }
 
@@ -561,85 +422,6 @@
 
   <div id="statusBar" class="status-bar screen-only">جاهز للتعبئة والحفظ والتصدير.</div>
 
-  <div class="mobile-form screen-only">
-    <div class="mobile-card">
-      <h2 class="mobile-title">تعبئة أسهل على الجوال</h2>
-      <p class="mobile-hint">في الجوال أدخل البيانات من الحقول التالية، وستظهر مباشرة داخل النموذج أعلاه بنفس التنسيق المعتمد في نسخة 3.</p>
-    </div>
-
-    <div class="mobile-card">
-      <h3 class="mobile-title">البيانات الأساسية</h3>
-      <div class="mobile-grid">
-        <label class="mobile-field">
-          <span class="mobile-label">البريد الإلكتروني التعليمي</span>
-          <input class="mobile-input ltr" type="text" data-bind="email" placeholder="name@school.edu.sa" />
-        </label>
-        <label class="mobile-field">
-          <span class="mobile-label">اسم المشارك</span>
-          <input class="mobile-input" type="text" data-bind="participantName" placeholder="اسم المشارك" />
-        </label>
-        <label class="mobile-field">
-          <span class="mobile-label">اسم المدرسة</span>
-          <input class="mobile-input" type="text" data-bind="schoolName" placeholder="اسم المدرسة" />
-        </label>
-        <label class="mobile-field">
-          <span class="mobile-label">إدارة التعليم</span>
-          <input class="mobile-input" type="text" data-bind="educationDept" placeholder="إدارة التعليم" />
-        </label>
-      </div>
-    </div>
-
-    <div class="mobile-card">
-      <h3 class="mobile-title">نوع المشارك والمسار</h3>
-      <label class="mobile-label">صفة المشارك</label>
-      <div class="mobile-options">
-        <label class="mobile-option"><input type="radio" name="mobileParticipantRole" value="" /> بدون تحديد</label>
-        <label class="mobile-option"><input type="radio" name="mobileParticipantRole" value="principal" /> مدير المدرسة</label>
-        <label class="mobile-option"><input type="radio" name="mobileParticipantRole" value="assistant" /> وكيل المدرسة</label>
-        <label class="mobile-option"><input type="radio" name="mobileParticipantRole" value="teacher" /> معلم</label>
-      </div>
-
-      <label class="mobile-label" style="margin-top:12px;">نوع المسار</label>
-      <div class="mobile-options">
-        <label class="mobile-option"><input type="radio" name="mobileTrackType" value="" /> بدون تحديد</label>
-        <label class="mobile-option"><input type="radio" name="mobileTrackType" value="teacherInnovator" /> المعلم المبتكر</label>
-        <label class="mobile-option"><input type="radio" name="mobileTrackType" value="leaderInnovator" /> القائد المبتكر</label>
-      </div>
-    </div>
-
-    <div class="mobile-card">
-      <h3 class="mobile-title">تفاصيل التطبيق العملي</h3>
-      <div class="mobile-grid">
-        <label class="mobile-field">
-          <span class="mobile-label">المشكلة التعليمية / الإدارية</span>
-          <textarea class="mobile-textarea" data-bind="problem" placeholder="اكتب المشكلة التعليمية أو الإدارية"></textarea>
-        </label>
-        <label class="mobile-field">
-          <span class="mobile-label">الأمر النصي المستخدم في Copilot</span>
-          <textarea class="mobile-textarea" data-bind="prompt" placeholder="اكتب الأمر النصي المستخدم في Copilot"></textarea>
-        </label>
-        <label class="mobile-field">
-          <span class="mobile-label">رابط الأمر النصي</span>
-          <textarea class="mobile-textarea ltr" data-bind="promptLink" placeholder="https://..."></textarea>
-        </label>
-        <label class="mobile-field">
-          <span class="mobile-label">الحل المقترح بعد المراجعة</span>
-          <textarea class="mobile-textarea" data-bind="solution" placeholder="اكتب الحل المقترح بعد المراجعة"></textarea>
-        </label>
-      </div>
-    </div>
-
-    <div class="mobile-card">
-      <h3 class="mobile-title">لقطة الشاشة</h3>
-      <p class="mobile-hint">استخدم الأزرار التالية لإرفاق الصورة أو حذفها. ستظهر مباشرة داخل مكانها في النموذج.</p>
-      <div class="mobile-action-row">
-        <button class="btn btn-secondary" type="button" onclick="openImagePicker()">إرفاق صورة</button>
-        <button class="btn btn-danger" type="button" onclick="removeImage()">حذف الصورة</button>
-      </div>
-    </div>
-  </div>
-
-
   <script>
     const STORAGE_KEY = 'hour_ai_template_state_v2';
     const fieldIds = ["email", "participantName", "schoolName", "educationDept", "problem", "prompt", "promptLink", "solution"];
@@ -693,8 +475,37 @@
       const source = byId(id);
       const target = byId('print-' + id);
       if (!source || !target) return;
-      target.textContent = source.value || '';
+      if (id === 'promptLink') {
+        renderPrintLink(target, source.value || '');
+      } else {
+        target.textContent = source.value || '';
+      }
       autoFitSingleLineField(source);
+    }
+
+
+    function normalizeUrl(value) {
+      const raw = String(value || '').trim();
+      if (!raw) return '';
+      if (/^(https?:|mailto:|tel:)/i.test(raw)) return raw;
+      if (/^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/i.test(raw)) return 'mailto:' + raw;
+      if (/^[\w.-]+\.[A-Za-z]{2,}(?:[/?#]|$)/i.test(raw)) return 'https://' + raw;
+      return raw;
+    }
+
+    function renderPrintLink(target, value) {
+      if (!target) return;
+      const trimmed = String(value || '').trim();
+      target.innerHTML = '';
+      if (!trimmed) return;
+      const anchor = document.createElement('a');
+      anchor.className = 'print-link-anchor';
+      anchor.href = normalizeUrl(trimmed);
+      anchor.target = '_blank';
+      anchor.rel = 'noopener noreferrer';
+      anchor.textContent = 'اضغط هنا';
+      anchor.title = trimmed;
+      target.appendChild(anchor);
     }
 
     function syncAllTextFields() {
@@ -703,33 +514,6 @@
 
     function autoFitAllSingleLineFields() {
       document.querySelectorAll('.edit-input').forEach(autoFitSingleLineField);
-    }
-
-    function syncMobileFieldsFromState() {
-      document.querySelectorAll('[data-bind]').forEach((field) => {
-        const source = byId(field.dataset.bind);
-        if (source && field.value !== source.value) {
-          field.value = source.value;
-        }
-      });
-
-      const selectedParticipant = checkboxIds.find((id) => ['principal', 'assistant', 'teacher'].includes(id) && byId(id).checked) || '';
-      document.querySelectorAll('input[name="mobileParticipantRole"]').forEach((radio) => {
-        radio.checked = radio.value === selectedParticipant;
-      });
-
-      const selectedTrack = checkboxIds.find((id) => ['teacherInnovator', 'leaderInnovator'].includes(id) && byId(id).checked) || '';
-      document.querySelectorAll('input[name="mobileTrackType"]').forEach((radio) => {
-        radio.checked = radio.value === selectedTrack;
-      });
-    }
-
-    function setCheckboxGroup(groupName, selectedId) {
-      document.querySelectorAll('.box-check[data-group="' + groupName + '"]').forEach((box) => {
-        box.checked = !!selectedId && box.id === selectedId;
-      });
-      syncMobileFieldsFromState();
-      saveState(false);
     }
 
     function updateImageViews() {
@@ -831,7 +615,6 @@
 
       syncAllTextFields();
       updateImageViews();
-      syncMobileFieldsFromState();
     }
 
     function enforceSingleCheck(changedBox) {
@@ -861,13 +644,6 @@
       byId('imageInput').click();
     }
 
-    function removeImage() {
-      state.imageData = '';
-      state.imageName = '';
-      updateImageViews();
-      saveState(true);
-    }
-
     function clearForm() {
       if (!confirm('هل تريد مسح جميع البيانات من النموذج؟')) return;
 
@@ -884,7 +660,6 @@
       state.imageName = '';
       updateImageViews();
       localStorage.removeItem(STORAGE_KEY);
-      syncMobileFieldsFromState();
       setStatus('تم مسح النموذج.');
     }
 
@@ -897,48 +672,398 @@
       return safeName || 'النموذج';
     }
 
-    function exportPdf() {
-      syncAllTextFields();
 
-      const originalTitle = document.title;
-      document.title = buildFileName();
 
-      setTimeout(() => {
-        window.print();
-        setTimeout(() => {
-          document.title = originalTitle;
-        }, 1200);
-      }, 80);
+    function waitForLoadedImage(img) {
+      return new Promise((resolve, reject) => {
+        if (img && img.complete && img.naturalWidth > 0) {
+          resolve(img);
+          return;
+        }
+        if (!img) {
+          reject(new Error('Template image not found'));
+          return;
+        }
+        const onLoad = () => {
+          cleanup();
+          resolve(img);
+        };
+        const onError = () => {
+          cleanup();
+          reject(new Error('Failed to load template image'));
+        };
+        const cleanup = () => {
+          img.removeEventListener('load', onLoad);
+          img.removeEventListener('error', onError);
+        };
+        img.addEventListener('load', onLoad, { once: true });
+        img.addEventListener('error', onError, { once: true });
+      });
     }
+
+
+    function loadImageFromUrl(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error('Failed to render page preview'));
+        img.src = url;
+      });
+    }
+
+    function parsePxValue(value, fallback) {
+      const parsed = parseFloat(value);
+      return Number.isFinite(parsed) ? parsed : fallback;
+    }
+
+    function clampTextToWidth(ctx, text, maxWidth) {
+      const value = String(text || '');
+      if (!value || ctx.measureText(value).width <= maxWidth) return value;
+      const ellipsis = '…';
+      let trimmed = value;
+      while (trimmed && ctx.measureText(trimmed + ellipsis).width > maxWidth) {
+        trimmed = trimmed.slice(0, -1);
+      }
+      return trimmed ? trimmed + ellipsis : ellipsis;
+    }
+
+    function wrapCanvasText(ctx, text, maxWidth) {
+      const source = String(text || '').replace(/\r\n/g, '\n');
+      if (!source) return [''];
+      const lines = [];
+      source.split('\n').forEach((paragraph) => {
+        const clean = paragraph.replace(/\s+/g, ' ').trim();
+        if (!clean) {
+          lines.push('');
+          return;
+        }
+        const words = clean.split(' ');
+        let current = '';
+        words.forEach((word) => {
+          const candidate = current ? current + ' ' + word : word;
+          if (!current || ctx.measureText(candidate).width <= maxWidth) {
+            current = candidate;
+          } else {
+            lines.push(current);
+            current = word;
+          }
+        });
+        if (current) lines.push(current);
+      });
+      return lines.length ? lines : [''];
+    }
+
+    function drawTextBlockToCanvas(ctx, rect, styles, text, scaleX, scaleY, options) {
+      const value = String(text || '');
+      if (!value.trim()) return;
+      const settings = options || {};
+      const fontFamily = styles.fontFamily || 'Tahoma, Arial, sans-serif';
+      const fontWeight = styles.fontWeight || '400';
+      const fontSize = Math.max(8, parsePxValue(styles.fontSize, 14) * scaleY);
+      const lineHeight = Math.max(fontSize * 1.15, parsePxValue(styles.lineHeight, fontSize * 1.2) * scaleY);
+      const paddingTop = parsePxValue(styles.paddingTop, 0) * scaleY;
+      const paddingRight = parsePxValue(styles.paddingRight, 0) * scaleX;
+      const paddingBottom = parsePxValue(styles.paddingBottom, 0) * scaleY;
+      const paddingLeft = parsePxValue(styles.paddingLeft, 0) * scaleX;
+      const availableWidth = Math.max(10, rect.w - paddingLeft - paddingRight);
+      const availableHeight = Math.max(lineHeight, rect.h - paddingTop - paddingBottom);
+      const maxLines = Math.max(1, Math.floor(availableHeight / lineHeight));
+      ctx.save();
+      ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+      ctx.fillStyle = settings.color || styles.color || '#111827';
+      ctx.textBaseline = 'top';
+      ctx.textAlign = styles.textAlign === 'left' ? 'left' : (styles.textAlign === 'center' ? 'center' : 'right');
+      if ('direction' in ctx) {
+        ctx.direction = styles.direction === 'ltr' ? 'ltr' : 'rtl';
+      }
+      let lines = wrapCanvasText(ctx, value, availableWidth);
+      if (lines.length > maxLines) {
+        lines = lines.slice(0, maxLines);
+        lines[maxLines - 1] = clampTextToWidth(ctx, lines[maxLines - 1], availableWidth);
+      }
+      const baseX = ctx.textAlign === 'left'
+        ? rect.x + paddingLeft
+        : (ctx.textAlign === 'center'
+          ? rect.x + rect.w / 2
+          : rect.x + rect.w - paddingRight);
+      let y = rect.y + paddingTop;
+      lines.forEach((line) => {
+        const finalLine = clampTextToWidth(ctx, line, availableWidth);
+        ctx.fillText(finalLine, baseX, y, availableWidth);
+        if (settings.underline) {
+          const metrics = ctx.measureText(finalLine);
+          const lineWidth = Math.min(metrics.width, availableWidth);
+          let underlineStartX = baseX;
+          if (ctx.textAlign === 'right') underlineStartX = baseX - lineWidth;
+          if (ctx.textAlign === 'center') underlineStartX = baseX - lineWidth / 2;
+          const underlineY = y + fontSize + Math.max(1, fontSize * 0.08);
+          ctx.beginPath();
+          ctx.lineWidth = Math.max(1, fontSize * 0.06);
+          ctx.strokeStyle = settings.color || styles.color || '#0f5f8f';
+          ctx.moveTo(underlineStartX, underlineY);
+          ctx.lineTo(underlineStartX + lineWidth, underlineY);
+          ctx.stroke();
+        }
+        y += lineHeight;
+      });
+      ctx.restore();
+    }
+
+
+
+    function getRelativeRect(element, referenceRect, scaleX, scaleY) {
+      const rect = element.getBoundingClientRect();
+      return {
+        x: (rect.left - referenceRect.left) * scaleX,
+        y: (rect.top - referenceRect.top) * scaleY,
+        w: rect.width * scaleX,
+        h: rect.height * scaleY
+      };
+    }
+
+    async function renderPaperToCanvas() {
+      const paper = byId('paper');
+      const templateImg = paper.querySelector('.template-img');
+      await waitForLoadedImage(templateImg);
+
+      const pageWidth = templateImg.naturalWidth || 1241;
+      const pageHeight = templateImg.naturalHeight || 1754;
+      const paperRect = paper.getBoundingClientRect();
+      const scaleX = pageWidth / paperRect.width;
+      const scaleY = pageHeight / paperRect.height;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = pageWidth;
+      canvas.height = pageHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, pageWidth, pageHeight);
+      ctx.drawImage(templateImg, 0, 0, pageWidth, pageHeight);
+
+      Array.from(paper.querySelectorAll('.print-field')).forEach((field) => {
+        const slot = field.closest('.slot') || field;
+        const slotRect = getRelativeRect(slot, paperRect, scaleX, scaleY);
+        const anchor = field.querySelector('.print-link-anchor[href]');
+        const styles = window.getComputedStyle(anchor || field);
+        if (anchor) {
+          drawTextBlockToCanvas(ctx, slotRect, styles, anchor.textContent || '', scaleX, scaleY, {
+            color: styles.color || '#0f5f8f',
+            underline: true
+          });
+        } else {
+          drawTextBlockToCanvas(ctx, slotRect, window.getComputedStyle(field), field.textContent || '', scaleX, scaleY);
+        }
+      });
+
+      Array.from(paper.querySelectorAll('.box-check')).forEach((box) => {
+        if (!box.checked) return;
+        const rect = getRelativeRect(box, paperRect, scaleX, scaleY);
+        ctx.save();
+        const fontSize = Math.max(rect.h * 1.1, rect.w * 1.1, 16);
+        ctx.font = `700 ${fontSize}px Tahoma, Arial, sans-serif`;
+        ctx.fillStyle = '#111111';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('✓', rect.x + rect.w / 2, rect.y + rect.h / 2);
+        ctx.restore();
+      });
+
+      const screenshotImg = byId('printScreenshotImage');
+      if (screenshotImg && screenshotImg.src) {
+        await waitForLoadedImage(screenshotImg);
+        const slot = screenshotImg.closest('.screenshot-slot');
+        if (slot) {
+          const rect = getRelativeRect(slot, paperRect, scaleX, scaleY);
+          const sourceWidth = screenshotImg.naturalWidth || screenshotImg.width;
+          const sourceHeight = screenshotImg.naturalHeight || screenshotImg.height;
+          if (sourceWidth > 0 && sourceHeight > 0) {
+            const ratio = Math.min(rect.w / sourceWidth, rect.h / sourceHeight);
+            const drawWidth = sourceWidth * ratio;
+            const drawHeight = sourceHeight * ratio;
+            const drawX = rect.x + (rect.w - drawWidth) / 2;
+            const drawY = rect.y;
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(rect.x, rect.y, rect.w, rect.h);
+            ctx.clip();
+            ctx.drawImage(screenshotImg, drawX, drawY, drawWidth, drawHeight);
+            ctx.restore();
+          }
+        }
+      }
+
+      return { canvas, pageWidth, pageHeight };
+    }
+
+
+    function collectPdfLinks(pageWidth, pageHeight) {
+      const paper = byId('paper');
+      const paperRect = paper.getBoundingClientRect();
+      const scaleX = pageWidth / paperRect.width;
+      const scaleY = pageHeight / paperRect.height;
+
+      return Array.from(paper.querySelectorAll('.print-link-anchor[href]'))
+        .map((anchor) => {
+          const slot = anchor.closest('.slot') || anchor;
+          const href = normalizeUrl(anchor.getAttribute('href') || anchor.href || '');
+          if (!href) return null;
+          return {
+            url: href,
+            rect: getRelativeRect(slot, paperRect, scaleX, scaleY)
+          };
+        })
+        .filter(Boolean);
+    }
+
+    function utf8Bytes(value) {
+      return new TextEncoder().encode(value);
+    }
+
+    function concatBytes(chunks) {
+      const total = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+      const merged = new Uint8Array(total);
+      let offset = 0;
+      chunks.forEach((chunk) => {
+        merged.set(chunk, offset);
+        offset += chunk.length;
+      });
+      return merged;
+    }
+
+    function base64ToBytes(base64) {
+      const binary = atob(base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i += 1) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      return bytes;
+    }
+
+    function escapePdfString(value) {
+      return String(value || '')
+        .replace(/\\/g, '\\\\')
+        .replace(/\(/g, '\\(')
+        .replace(/\)/g, '\\)');
+    }
+
+    function formatPdfNumber(value) {
+      return Number(value).toFixed(2).replace(/\.00$/, '');
+    }
+
+    function buildPdfBlobFromCanvas(canvas, links) {
+      const pageWidthPt = 595.28;
+      const pageHeightPt = 841.89;
+      const imageDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+      const imageBytes = base64ToBytes(imageDataUrl.split(',')[1]);
+      const contentStream = utf8Bytes(
+        'q\n' +
+        formatPdfNumber(pageWidthPt) + ' 0 0 ' + formatPdfNumber(pageHeightPt) + ' 0 0 cm\n' +
+        '/Im0 Do\n' +
+        'Q\n'
+      );
+
+      const annotationObjectNumbers = links.map((_, index) => 6 + index);
+      const pageAnnots = annotationObjectNumbers.length
+        ? ' /Annots [' + annotationObjectNumbers.map((num) => num + ' 0 R').join(' ') + ']'
+        : '';
+
+      const chunks = [];
+      const offsets = [0];
+      let length = 0;
+
+      function push(chunk) {
+        const bytes = typeof chunk === 'string' ? utf8Bytes(chunk) : chunk;
+        chunks.push(bytes);
+        length += bytes.length;
+      }
+
+      function addObject(number, header, streamBytes) {
+        offsets[number] = length;
+        push(number + ' 0 obj\n');
+        push(header);
+        if (streamBytes) {
+          push('\nstream\n');
+          push(streamBytes);
+          push('\nendstream');
+        }
+        push('\nendobj\n');
+      }
+
+      push('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+
+      addObject(1, '<< /Type /Catalog /Pages 2 0 R >>');
+      addObject(2, '<< /Type /Pages /Count 1 /Kids [3 0 R] >>');
+      addObject(
+        3,
+        '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + formatPdfNumber(pageWidthPt) + ' ' + formatPdfNumber(pageHeightPt) + '] ' +
+          '/Resources << /ProcSet [/PDF /ImageC] /XObject << /Im0 4 0 R >> >> ' +
+          '/Contents 5 0 R' + pageAnnots + ' >>'
+      );
+      addObject(
+        4,
+        '<< /Type /XObject /Subtype /Image /Width ' + canvas.width + ' /Height ' + canvas.height + ' ' +
+          '/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + imageBytes.length + ' >>',
+        imageBytes
+      );
+      addObject(5, '<< /Length ' + contentStream.length + ' >>', contentStream);
+
+      links.forEach((link, index) => {
+        const x1 = (link.rect.x / canvas.width) * pageWidthPt;
+        const x2 = ((link.rect.x + link.rect.w) / canvas.width) * pageWidthPt;
+        const y1 = pageHeightPt - ((link.rect.y + link.rect.h) / canvas.height) * pageHeightPt;
+        const y2 = pageHeightPt - (link.rect.y / canvas.height) * pageHeightPt;
+        addObject(
+          6 + index,
+          '<< /Type /Annot /Subtype /Link /Rect [' +
+            [x1, y1, x2, y2].map(formatPdfNumber).join(' ') +
+            '] /Border [0 0 0] /A << /S /URI /URI (' + escapePdfString(link.url) + ') >> >>'
+        );
+      });
+
+      const xrefOffset = length;
+      const objectCount = 5 + links.length;
+      push('xref\n0 ' + (objectCount + 1) + '\n');
+      push('0000000000 65535 f \n');
+      for (let i = 1; i <= objectCount; i += 1) {
+        const offset = String(offsets[i] || 0).padStart(10, '0');
+        push(offset + ' 00000 n \n');
+      }
+      push('trailer\n<< /Size ' + (objectCount + 1) + ' /Root 1 0 R >>\n');
+      push('startxref\n' + xrefOffset + '\n%%EOF');
+
+      return new Blob([concatBytes(chunks)], { type: 'application/pdf' });
+    }
+
+    async function exportPdf() {
+      try {
+        syncAllTextFields();
+        setStatus('جاري إنشاء ملف PDF...');
+        const { canvas, pageWidth, pageHeight } = await renderPaperToCanvas();
+        const links = collectPdfLinks(pageWidth, pageHeight);
+        const pdfBlob = buildPdfBlobFromCanvas(canvas, links);
+        const downloadUrl = URL.createObjectURL(pdfBlob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = buildFileName() + '.pdf';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(downloadUrl), 4000);
+        setStatus('تم تنزيل ملف PDF بنجاح.');
+      } catch (error) {
+        console.error(error);
+        setStatus('تعذر إنشاء PDF.');
+        alert('تعذر إنشاء PDF في هذه المحاولة. يرجى إعادة المحاولة بعد تحديث الصفحة.');
+      }
+    }
+
+
 
     fieldIds.forEach((id) => {
       const field = byId(id);
       field.addEventListener('input', () => {
         syncTextField(id);
-        syncMobileFieldsFromState();
         saveState(false);
-      });
-    });
-
-    document.querySelectorAll('[data-bind]').forEach((field) => {
-      field.addEventListener('input', () => {
-        const source = byId(field.dataset.bind);
-        if (!source) return;
-        source.value = field.value;
-        syncTextField(source.id);
-        saveState(false);
-      });
-    });
-
-    document.querySelectorAll('input[name="mobileParticipantRole"]').forEach((radio) => {
-      radio.addEventListener('change', () => {
-        setCheckboxGroup('participantRole', radio.value || '');
-      });
-    });
-
-    document.querySelectorAll('input[name="mobileTrackType"]').forEach((radio) => {
-      radio.addEventListener('change', () => {
-        setCheckboxGroup('trackType', radio.value || '');
       });
     });
 
@@ -946,7 +1071,6 @@
       const box = byId(id);
       box.addEventListener('change', () => {
         enforceSingleCheck(box);
-        syncMobileFieldsFromState();
         saveState(false);
       });
     });
@@ -977,7 +1101,6 @@
     window.addEventListener('DOMContentLoaded', () => {
       loadState();
       autoFitAllSingleLineFields();
-      syncMobileFieldsFromState();
     });
   </script>
 </body>
