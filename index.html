@@ -145,7 +145,10 @@
       padding: 7px 9px;
       font-size: clamp(13px, 1.18vw, 18px);
       resize: none;
-      overflow: auto;
+      overflow: hidden;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .slot.big .edit-area {
@@ -164,6 +167,7 @@
       line-height: 1.2;
       white-space: pre-wrap;
       word-break: break-word;
+      overflow-wrap: anywhere;
       overflow: hidden;
     }
 
@@ -264,6 +268,17 @@
       color: #64748b;
       font-size: 13px;
       margin: 12px 0 0;
+    }
+
+    .dev-signature {
+      position: fixed;
+      bottom: 10px;
+      left: 15px;
+      font-size: 12px;
+      color: #6b7280;
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 40;
     }
 
     .mobile-form {
@@ -393,6 +408,42 @@
     }
 
 
+    body.measure-print .toolbar,
+    body.measure-print .status-bar,
+    body.measure-print .screen-only,
+    body.measure-print .mobile-form {
+      display: none !important;
+    }
+
+    body.measure-print .print-only {
+      display: block !important;
+    }
+
+    body.measure-print .workspace {
+      padding: 0;
+      margin: 0;
+    }
+
+    body.measure-print .paper {
+      width: 210mm;
+      height: 297mm;
+      border-radius: 0;
+      box-shadow: none;
+      margin: 0;
+      max-width: none;
+    }
+
+    body.measure-print .edit-input,
+    body.measure-print .edit-area,
+    body.measure-print .screenshot-placeholder {
+      display: none !important;
+    }
+
+    body.measure-print .print-field {
+      display: block !important;
+    }
+
+
     @media (max-width: 900px) {
       .toolbar {
         padding: 12px 10px;
@@ -489,6 +540,14 @@
         display: block !important;
       }
 
+      .print-only .screenshot-image {
+        display: block !important;
+      }
+
+      .dev-signature {
+        display: none !important;
+      }
+
       .box-check {
         pointer-events: none;
       }
@@ -571,6 +630,8 @@
       </div>
     </div>
   </div>
+
+  <div class="dev-signature screen-only">برمجة عبدالرحمن الثقفي</div>
 
   <div id="statusBar" class="status-bar screen-only">جاهز للتعبئة والحفظ والتصدير.</div>
 
@@ -702,6 +763,91 @@
       }
     }
 
+    function autoFitTextAreaField(field) {
+      if (!(field instanceof HTMLElement) || !field.classList.contains('edit-area')) return;
+
+      const styles = window.getComputedStyle(field);
+      const rawBaseLine = parseFloat(styles.lineHeight);
+      const baseFont = parseFloat(field.dataset.baseFont || styles.fontSize);
+      const baseLine = parseFloat(field.dataset.baseLineHeight || (Number.isFinite(rawBaseLine) ? rawBaseLine : baseFont * 1.35));
+      const minFont = parseFloat(field.dataset.minFont || (field.closest('.slot.big') ? '6.6' : field.closest('.slot.medium') ? '7.1' : '7.5'));
+      const minLine = Math.max(minFont + 0.1, parseFloat(field.dataset.minLineHeight || (minFont * 1.02)));
+
+      if (!field.dataset.baseFont) field.dataset.baseFont = String(baseFont);
+      if (!field.dataset.baseLineHeight) field.dataset.baseLineHeight = String(baseLine);
+
+      let currentFont = baseFont;
+      let currentLine = baseLine;
+      field.style.fontSize = currentFont + 'px';
+      field.style.lineHeight = currentLine + 'px';
+
+      const fits = () => field.scrollHeight <= field.clientHeight + 1 && field.scrollWidth <= field.clientWidth + 1;
+      while (!fits() && currentFont > minFont) {
+        currentFont = Math.max(minFont, currentFont - 0.25);
+        currentLine = Math.max(minLine, currentLine - 0.18);
+        field.style.fontSize = currentFont + 'px';
+        field.style.lineHeight = currentLine + 'px';
+      }
+
+      const printTarget = byId('print-' + field.id);
+      if (printTarget) {
+        printTarget.style.fontSize = currentFont + 'px';
+        printTarget.style.lineHeight = currentLine + 'px';
+      }
+    }
+
+    function fitPrintSingleLineField(source, target) {
+      if (!target) return;
+      const styles = window.getComputedStyle(target);
+      const baseSize = parseFloat(source?.dataset.baseFont || styles.fontSize);
+      const minSize = parseFloat(source?.dataset.minFont || (target.closest('.slot.small') ? '9' : '10'));
+      const paddingX = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+      const availableWidth = Math.max(20, target.clientWidth - paddingX - 2);
+      const text = source?.value || source?.placeholder || target.textContent || '';
+      const canvas = fitPrintSingleLineField._canvas || (fitPrintSingleLineField._canvas = document.createElement('canvas'));
+      const context = canvas.getContext('2d');
+      let currentSize = baseSize;
+      context.font = `${styles.fontWeight} ${currentSize}px ${styles.fontFamily}`;
+      while (currentSize > minSize && context.measureText(text).width > availableWidth) {
+        currentSize -= 0.5;
+        context.font = `${styles.fontWeight} ${currentSize}px ${styles.fontFamily}`;
+      }
+      target.style.fontSize = currentSize + 'px';
+      target.style.lineHeight = styles.lineHeight;
+    }
+
+    function fitPrintTextAreaField(source, target) {
+      if (!target) return;
+      const styles = window.getComputedStyle(target);
+      const rawBaseLine = parseFloat(styles.lineHeight);
+      const baseFont = parseFloat(source?.dataset.baseFont || styles.fontSize);
+      const baseLine = parseFloat(source?.dataset.baseLineHeight || (Number.isFinite(rawBaseLine) ? rawBaseLine : baseFont * 1.25));
+      const minFont = parseFloat(source?.dataset.minFont || (target.closest('.slot.big') ? '6.6' : target.closest('.slot.medium') ? '7.1' : '7.5'));
+      const minLine = Math.max(minFont + 0.1, parseFloat(source?.dataset.minLineHeight || (minFont * 1.02)));
+
+      let currentFont = baseFont;
+      let currentLine = baseLine;
+      target.style.fontSize = currentFont + 'px';
+      target.style.lineHeight = currentLine + 'px';
+
+      const fits = () => target.scrollHeight <= target.clientHeight + 1 && target.scrollWidth <= target.clientWidth + 1;
+      while (!fits() && currentFont > minFont) {
+        currentFont = Math.max(minFont, currentFont - 0.25);
+        currentLine = Math.max(minLine, currentLine - 0.18);
+        target.style.fontSize = currentFont + 'px';
+        target.style.lineHeight = currentLine + 'px';
+      }
+    }
+
+    function fitPrintField(source, target) {
+      if (!target || target.clientHeight <= 0 || target.clientWidth <= 0) return;
+      if (source && source.classList.contains('edit-area')) {
+        fitPrintTextAreaField(source, target);
+      } else {
+        fitPrintSingleLineField(source, target);
+      }
+    }
+
     function syncTextField(id) {
       const source = byId(id);
       const target = byId('print-' + id);
@@ -711,7 +857,12 @@
       } else {
         target.textContent = source.value || '';
       }
-      autoFitSingleLineField(source);
+      if (source.classList.contains('edit-area')) {
+        autoFitTextAreaField(source);
+      } else {
+        autoFitSingleLineField(source);
+      }
+      fitPrintField(source, target);
     }
 
 
@@ -745,6 +896,10 @@
 
     function autoFitAllSingleLineFields() {
       document.querySelectorAll('.edit-input').forEach(autoFitSingleLineField);
+    }
+
+    function autoFitAllTextAreaFields() {
+      document.querySelectorAll('.edit-area').forEach(autoFitTextAreaField);
     }
 
     function syncMobileFieldsFromState() {
@@ -1301,26 +1456,46 @@
       return new Blob([concatBytes(chunks)], { type: 'application/pdf' });
     }
 
+    async function prepareForPrint() {
+      document.body.classList.add('measure-print');
+      syncAllTextFields();
+      updateImageViews();
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      syncAllTextFields();
+      const printImg = byId('printScreenshotImage');
+      if (!state.imageData || !printImg) return;
+      printImg.src = state.imageData;
+      if (printImg.complete && printImg.naturalWidth > 0) return;
+      await new Promise((resolve) => {
+        const done = () => {
+          printImg.removeEventListener('load', done);
+          printImg.removeEventListener('error', done);
+          resolve();
+        };
+        printImg.addEventListener('load', done, { once: true });
+        printImg.addEventListener('error', done, { once: true });
+      });
+    }
+
     async function exportPdf() {
+      const originalTitle = document.title;
+      document.title = buildFileName();
+      setStatus('جارٍ تجهيز النموذج للطباعة والتصدير...');
       try {
-        syncAllTextFields();
-        setStatus('جاري إنشاء ملف PDF...');
-        const { canvas, pageWidth, pageHeight } = await renderPaperToCanvas();
-        const links = collectPdfLinks(pageWidth, pageHeight);
-        const pdfBlob = buildPdfBlobFromCanvas(canvas, links);
-        const downloadUrl = URL.createObjectURL(pdfBlob);
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = buildFileName() + '.pdf';
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(downloadUrl), 4000);
-        setStatus('تم تنزيل ملف PDF بنجاح.');
+        await prepareForPrint();
+        setTimeout(() => {
+          window.print();
+          setStatus('تم فتح نافذة الطباعة.');
+          setTimeout(() => {
+            document.title = originalTitle;
+          }, 1200);
+        }, 120);
       } catch (error) {
         console.error(error);
-        setStatus('تعذر إنشاء PDF.');
-        alert('تعذر إنشاء PDF في هذه المحاولة. يرجى إعادة المحاولة بعد تحديث الصفحة.');
+        document.title = originalTitle;
+        document.body.classList.remove('measure-print');
+        setStatus('تعذر تجهيز النموذج للطباعة.');
+        alert('تعذر تجهيز النموذج للطباعة في هذه المحاولة.');
       }
     }
 
@@ -1387,11 +1562,27 @@
       }
     });
 
-    window.addEventListener('resize', autoFitAllSingleLineFields);
+    window.addEventListener('resize', () => {
+      autoFitAllSingleLineFields();
+      autoFitAllTextAreaFields();
+    });
+    window.addEventListener('beforeprint', () => {
+      document.body.classList.add('measure-print');
+      syncAllTextFields();
+      updateImageViews();
+    });
+
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('measure-print');
+      autoFitAllSingleLineFields();
+      autoFitAllTextAreaFields();
+      syncAllTextFields();
+    });
 
     window.addEventListener('DOMContentLoaded', () => {
       loadState();
       autoFitAllSingleLineFields();
+      autoFitAllTextAreaFields();
       syncMobileFieldsFromState();
     });
   </script>
